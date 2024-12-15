@@ -33,12 +33,12 @@ public class JobPortalClient {
         matchingEngine.addJob(job1);
         matchingEngine.addJob(job2);
 
-        JobSeeker seeker = new JobSeeker(1);
-        matchingEngine.matchJobs(seeker);
-        seeker.manageEducation();
-        seeker.manageExperience();
-        seeker.manageSkills();
-        matchingEngine.generateRecommendation();
+        // JobSeeker seeker = new JobSeeker(1);
+        // matchingEngine.matchJobs(seeker);
+        // seeker.manageEducation();
+        // seeker.manageExperience();
+        // seeker.manageSkills();
+        // matchingEngine.generateRecommendation();
     }
 
     public void triggerEvent(String eventType, String jobTitle) {

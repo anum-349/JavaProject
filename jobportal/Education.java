@@ -1,6 +1,8 @@
 package jobportal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Education {
     private int educationID;
@@ -8,9 +10,11 @@ public class Education {
     private String institution;
     private int yearOfGraduation;
     private double grade;
+    private static AtomicInteger idGenerator = new AtomicInteger(0); 
+    private static List<Education> educationList = new ArrayList<>();
 
-    public Education(int educationID, String degree, String institution, int yearOfGraduation, double grade) {
-        this.educationID = educationID;
+    public Education(String degree, String institution, int yearOfGraduation, double grade) {
+        this.educationID = idGenerator.getAndIncrement();
         this.degree = degree;
         this.institution = institution;
         this.yearOfGraduation = yearOfGraduation;
@@ -55,35 +59,60 @@ public class Education {
     @Override
     public String toString() {
         return "EducationID: " + educationID +
-                ", Degree: " + degree +
-                ", Institution: " + institution +
-                ", Year: " + yearOfGraduation +
-                ", Grade: " + grade;
+                "\n Degree: " + degree +
+                "\n Institution: " + institution +
+                "\n Year: " + yearOfGraduation +
+                "\n Grade: " + grade;
     }
 
-    private static List<Education> educationList = new ArrayList<>();
-
-    public static void addEducation(int educationID, String degree, String institution, int yearOfGraduation, double grade) {
-        Education education = new Education(educationID, degree, institution, yearOfGraduation, grade);
+    public Education addEducation() {
+        Scanner scanner = new Scanner(System.in);
+        String e_degree, e_institution;
+        int e_year;
+        double e_grade;
+        System.out.println("Enter your Degree: ");
+        e_degree = scanner.nextLine();
+        System.out.println("Enter your Institution: ");
+        e_institution = scanner.nextLine();
+        System.out.println("Enter your Year of Graduation: ");
+        e_year = scanner.nextInt();
+        System.out.println("Enter your Grade: ");
+        e_grade = scanner.nextDouble();
+        scanner.close();
+        Education education = new Education(e_degree, e_institution, e_year, e_grade);
         educationList.add(education);
-        System.out.println("Education added: " + degree + " from " + institution);
+        System.out.println("Education with id: " +getEducationID()+" degree: "+ e_degree + " from " + e_institution);
+        return education;
     }
 
-    public static void updateEducation(int educationID, String degree, String institution, int yearOfGraduation, double grade) {
+    public void updateEducation(int educationID) {
         for (Education education : educationList) {
             if (education.getEducationID() == educationID) {
-                education.setDegree(degree);
-                education.setInstitution(institution);
-                education.setYearOfGraduation(yearOfGraduation);
-                education.setGrade(grade);
-                System.out.println("Education updated: " + degree + " from " + institution);
+                Scanner scanner = new Scanner(System.in);
+                String e_degree, e_institution;
+                int e_year;
+                double e_grade;
+                System.out.println("Enter your Degree: ");
+                e_degree = scanner.nextLine();
+                System.out.println("Enter your Institution: ");
+                e_institution = scanner.nextLine();
+                System.out.println("Enter your Year of Graduation: ");
+                e_year = scanner.nextInt();
+                System.out.println("Enter your Grade: ");
+                e_grade = scanner.nextDouble();
+                scanner.close();
+                education.setDegree(e_degree);
+                education.setInstitution(e_institution);
+                education.setYearOfGraduation(e_year);
+                education.setGrade(e_grade);
+                System.out.println("Education updated: " + e_degree + " from " + e_institution);
                 return;
             }
         }
         System.out.println("Education record not found with ID: " + educationID);
     }
 
-    public static void deleteEducation(int educationID) {
+    public void deleteEducation(int educationID) {
         for (Education education : educationList) {
             if (education.getEducationID() == educationID) {
                 educationList.remove(education);
@@ -93,13 +122,13 @@ public class Education {
         }
         System.out.println("Education record not found with ID: " + educationID);
     }
-    public static void viewAllEducation() {
+    public void viewAllEducation() {
         if (educationList.isEmpty()) {
             System.out.println("No education records available.");
         } else {
             System.out.println("Education Records:");
             for (Education education : educationList) {
-                System.out.println(education);
+                System.out.println(education.toString());
             }
         }
     }}
