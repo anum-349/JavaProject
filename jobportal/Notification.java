@@ -1,4 +1,5 @@
 package jobportal;
+
 import java.util.Date;
 
 class Notification {
@@ -9,11 +10,12 @@ class Notification {
         this.message = message;
         this.date = new Date();
     }
+
     public void sendNotification() {
         System.out.println("Notification sent: " + message + " on " + date);
     }
 
-    public static Notification createNotification(String eventType, String jobTitle) {
+    public static Notification createNotification(String eventType, String jobTitle) { 
         String message;
         switch (eventType) {
             case "application":
@@ -32,7 +34,7 @@ class Notification {
     }
 
     public void deleteNotification() {
-        if (message == null) {
+        if (message == null || date == null) { 
             System.out.println("Notification already deleted.");
             return;
         }
@@ -42,7 +44,7 @@ class Notification {
     }
 
     public void viewNotification() {
-        if (message != null) {
+        if (message != null && date != null) { 
             System.out.println("Notification: " + message + ", Date: " + date);
         } else {
             System.out.println("No notifications available.");

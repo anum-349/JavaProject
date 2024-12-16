@@ -1,4 +1,5 @@
 package jobportal;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ public class Education {
     private String institution;
     private int yearOfGraduation;
     private double grade;
-    private static AtomicInteger idGenerator = new AtomicInteger(0); 
+    private static AtomicInteger idGenerator = new AtomicInteger(0);
     private static List<Education> educationList = new ArrayList<>();
 
     public Education(String degree, String institution, int yearOfGraduation, double grade) {
@@ -40,6 +41,7 @@ public class Education {
     public double getGrade() {
         return grade;
     }
+
     public void setDegree(String degree) {
         this.degree = degree;
     }
@@ -58,30 +60,25 @@ public class Education {
 
     @Override
     public String toString() {
-        return "EducationID: " + educationID +
-                "\n Degree: " + degree +
-                "\n Institution: " + institution +
-                "\n Year: " + yearOfGraduation +
-                "\n Grade: " + grade;
+        return String.format("EducationID: %d\nDegree: %s\nInstitution: %s\nYear: %d\nGrade: %.2f",
+                educationID, degree, institution, yearOfGraduation, grade);
     }
 
     public Education addEducation() {
         Scanner scanner = new Scanner(System.in);
-        String e_degree, e_institution;
-        int e_year;
-        double e_grade;
         System.out.println("Enter your Degree: ");
-        e_degree = scanner.nextLine();
+        String e_degree = scanner.nextLine();
         System.out.println("Enter your Institution: ");
-        e_institution = scanner.nextLine();
+        String e_institution = scanner.nextLine();
         System.out.println("Enter your Year of Graduation: ");
-        e_year = scanner.nextInt();
+        int e_year = scanner.nextInt();
         System.out.println("Enter your Grade: ");
-        e_grade = scanner.nextDouble();
+        double e_grade = scanner.nextDouble();
+        scanner.nextLine(); 
         scanner.close();
         Education education = new Education(e_degree, e_institution, e_year, e_grade);
         educationList.add(education);
-        System.out.println("Education with id: " +getEducationID()+" degree: "+ e_degree + " from " + e_institution);
+        System.out.println("Education added: " + education);
         return education;
     }
 
@@ -89,23 +86,22 @@ public class Education {
         for (Education education : educationList) {
             if (education.getEducationID() == educationID) {
                 Scanner scanner = new Scanner(System.in);
-                String e_degree, e_institution;
-                int e_year;
-                double e_grade;
+                System.out.println("Updating education details for ID: " + educationID);
                 System.out.println("Enter your Degree: ");
-                e_degree = scanner.nextLine();
+                String e_degree = scanner.nextLine();
                 System.out.println("Enter your Institution: ");
-                e_institution = scanner.nextLine();
+                String e_institution = scanner.nextLine();
                 System.out.println("Enter your Year of Graduation: ");
-                e_year = scanner.nextInt();
+                int e_year = scanner.nextInt();
                 System.out.println("Enter your Grade: ");
-                e_grade = scanner.nextDouble();
+                double e_grade = scanner.nextDouble();
+                scanner.nextLine(); 
                 scanner.close();
                 education.setDegree(e_degree);
                 education.setInstitution(e_institution);
                 education.setYearOfGraduation(e_year);
                 education.setGrade(e_grade);
-                System.out.println("Education updated: " + e_degree + " from " + e_institution);
+                System.out.println("Education updated: " + education);
                 return;
             }
         }
@@ -113,22 +109,22 @@ public class Education {
     }
 
     public void deleteEducation(int educationID) {
-        for (Education education : educationList) {
-            if (education.getEducationID() == educationID) {
-                educationList.remove(education);
-                System.out.println("Education deleted: " + education.getDegree() + " from " + education.getInstitution());
-                return;
-            }
+        boolean removed = educationList.removeIf(education -> education.getEducationID() == educationID);
+        if (removed) {
+            System.out.println("Education record deleted for ID: " + educationID);
+        } else {
+            System.out.println("Education record not found with ID: " + educationID);
         }
-        System.out.println("Education record not found with ID: " + educationID);
     }
+
     public void viewAllEducation() {
         if (educationList.isEmpty()) {
             System.out.println("No education records available.");
         } else {
             System.out.println("Education Records:");
             for (Education education : educationList) {
-                System.out.println(education.toString());
+                System.out.println(education);
             }
         }
-    }}
+    }
+}

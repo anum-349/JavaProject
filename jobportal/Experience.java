@@ -1,4 +1,5 @@
 package jobportal;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,19 +9,19 @@ public class Experience {
     private int experienceID;
     private String jobTitle;
     private String companyName;
-    private String duration; 
+    private int duration;
     private String description;
     private static AtomicInteger generateid = new AtomicInteger(0);
     private static List<Experience> experienceList = new ArrayList<>();
 
-     public Experience(String jobTitle, String companyName, String duration, String description) {
+    public Experience(String jobTitle, String companyName, int duration, String description) {
         this.experienceID = generateid.getAndIncrement();
         this.jobTitle = jobTitle;
         this.companyName = companyName;
         this.duration = duration;
         this.description = description;
     }
-   
+
     public int getExperienceID() {
         return experienceID;
     }
@@ -33,7 +34,7 @@ public class Experience {
         return companyName;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
@@ -49,7 +50,7 @@ public class Experience {
         this.companyName = companyName;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -57,43 +58,50 @@ public class Experience {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Experience ID: %d\nJob Title: %s\nCompany: %s\nDuration: %d years\nDescription: %s",
+                experienceID, jobTitle, companyName, duration, description);
+    }
+
     public Experience addExperience() {
         Scanner scanner = new Scanner(System.in);
-        String title, company, descrip, durat;
         System.out.println("Enter your Job Title: ");
-        title = scanner.nextLine();
+        String e_title = scanner.nextLine();
         System.out.println("Enter your Company Name: ");
-        company = scanner.nextLine();
-        System.out.println("Enter your Year of Duration: ");
-        durat = scanner.nextLine();
+        String e_company = scanner.nextLine();
+        System.out.println("Enter your Duration (in years): ");
+        int e_duration = scanner.nextInt();
+        scanner.nextLine(); 
         System.out.println("Enter your Job Description: ");
-        descrip = scanner.nextLine();
+        String e_description = scanner.nextLine();
         scanner.close();
-        Experience experience = new Experience(title, company, durat, descrip);
+        Experience experience = new Experience(e_title, e_company, e_duration, e_description);
         experienceList.add(experience);
-        System.out.println("Experience added with id: " +getExperienceID()+" job: "+ title + " at " + company);
+        System.out.println("Experience added: " + experience);
         return experience;
     }
 
     public void updateExperience(int experienceID) {
         for (Experience experience : experienceList) {
             if (experience.getExperienceID() == experienceID) {
+                System.out.println("Updating experience for ID: " + experienceID);
                 Scanner scanner = new Scanner(System.in);
-                String title, company, descrip, durat;
                 System.out.println("Enter your Job Title: ");
-                title = scanner.nextLine();
+                String e_title = scanner.nextLine();
                 System.out.println("Enter your Company Name: ");
-                company = scanner.nextLine();
-                System.out.println("Enter your Year of Duration: ");
-                durat = scanner.nextLine();
+                String e_company = scanner.nextLine();
+                System.out.println("Enter your Duration (in years): ");
+                int e_duration = scanner.nextInt();
+                scanner.nextLine(); 
                 System.out.println("Enter your Job Description: ");
-                descrip = scanner.nextLine();
+                String e_description = scanner.nextLine();
                 scanner.close();
-                experience.setJobTitle(title);
-                experience.setCompanyName(company);
-                experience.setDuration(durat);
-                experience.setDescription(descrip);
-                System.out.println("Experience updated: " + title + " at " + company);
+                experience.setJobTitle(e_title);
+                experience.setCompanyName(e_company);
+                experience.setDuration(e_duration);
+                experience.setDescription(e_description);
+                System.out.println("Experience updated: " + experience);
                 return;
             }
         }
@@ -101,14 +109,12 @@ public class Experience {
     }
 
     public void deleteExperience(int experienceID) {
-        for (Experience experience : experienceList) {
-            if (experience.getExperienceID() == experienceID) {
-                experienceList.remove(experience);
-                System.out.println("Experience deleted: " + experience.getJobTitle() + " at " + experience.getCompanyName());
-                return;
-            }
+        boolean removed = experienceList.removeIf(exp -> exp.getExperienceID() == experienceID);
+        if (removed) {
+            System.out.println("Experience record deleted for ID: " + experienceID);
+        } else {
+            System.out.println("Experience record not found with ID: " + experienceID);
         }
-        System.out.println("Experience record not found with ID: " + experienceID);
     }
 
     public void viewAllExperience() {
@@ -117,13 +123,8 @@ public class Experience {
         } else {
             System.out.println("Experience Records:");
             for (Experience experience : experienceList) {
-                System.out.println("Experience ID: " + experience.getExperienceID() + 
-                                    "\nJob Title: " + experience.getJobTitle() +
-                                    "\n Company: " + experience.getCompanyName() + 
-                                    "\n Duration: " + experience.getDuration() +
-                                    "\n Description: " + experience.getDescription());
+                System.out.println(experience);
             }
         }
     }
-
-  }
+}
