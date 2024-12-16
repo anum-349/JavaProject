@@ -1,13 +1,11 @@
-package jobportal;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FrontEndDeveloperJobs extends Job {
+public class BackendDeveloperJobs extends Job {
 
-    public FrontEndDeveloperJobs(){}
+    public BackendDeveloperJobs(){}
     
-    public FrontEndDeveloperJobs(String title, String description, String company, String location, double salary, 
+    public BackendDeveloperJobs(String title, String description, String company, String location, double salary, 
                  ArrayList<String> reqSkills, String qualification, int experienceYears) {
         super(title, description, company, location, salary, reqSkills, qualification, experienceYears);
     }
@@ -49,7 +47,7 @@ public class FrontEndDeveloperJobs extends Job {
         }
         scanner.close();
 
-        Job job = new FrontEndDeveloperJobs(j_title, j_description, j_company, j_location, j_salary, j_Skills, j_qualification, j_experience);
+        Job job = new BackendDeveloperJobs(j_title, j_description, j_company, j_location, j_salary, j_Skills, j_qualification, j_experience);
         jobList.add(job);
 
         System.out.println("Experience added with ID: " + job.getJobID() + " job: " + j_title + " at " + j_company);

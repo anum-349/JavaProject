@@ -1,4 +1,3 @@
-package jobportal;
 
 import java.util.Date;
 

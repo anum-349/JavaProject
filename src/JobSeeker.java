@@ -1,4 +1,3 @@
-package jobportal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,11 +177,9 @@ public class JobSeeker {
         System.out.println("Jobseeker record not found with ID: " + job_seeker_id);
     }
 
-    public void profile_Application() {
-        Scanner scanner = new Scanner(System.in);
+    public void profile_Application(Scanner scanner) {
         System.out.println("Do you have an account? (y/n)");
         String account_choice = scanner.nextLine();
-        scanner.close();
         if (account_choice.equalsIgnoreCase("y")) {
             System.out.println("Enter your ID: ");
             int job_seeker_id = scanner.nextInt();
