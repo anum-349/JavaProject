@@ -3,9 +3,11 @@ package jobportal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class job_1 extends Job {
-    // Constructor for the Job_1 class
-    public job_1(String title, String description, String company, String location, double salary, 
+public class FrontEndDeveloperJobs extends Job {
+
+    public FrontEndDeveloperJobs(){}
+    
+    public FrontEndDeveloperJobs(String title, String description, String company, String location, double salary, 
                  ArrayList<String> reqSkills, String qualification, int experienceYears) {
         super(title, description, company, location, salary, reqSkills, qualification, experienceYears);
     }
@@ -47,7 +49,7 @@ public class job_1 extends Job {
         }
         scanner.close();
 
-        Job job = new job_1(j_title, j_description, j_company, j_location, j_salary, j_Skills, j_qualification, j_experience);
+        Job job = new FrontEndDeveloperJobs(j_title, j_description, j_company, j_location, j_salary, j_Skills, j_qualification, j_experience);
         jobList.add(job);
 
         System.out.println("Experience added with ID: " + job.getJobID() + " job: " + j_title + " at " + j_company);

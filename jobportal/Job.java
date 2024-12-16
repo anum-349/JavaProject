@@ -18,6 +18,8 @@ public abstract class Job {
     protected static List<Job> jobList = new ArrayList<>();
     private List<Application> applications = new ArrayList<>();
 
+    public Job(){}
+    
     public Job(String title, String description, String company, String location, double salary, 
             List<String> reqSkills, String qualification, int experienceYears) { 
         this.jobID = generateid.getAndIncrement();

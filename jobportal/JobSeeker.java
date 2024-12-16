@@ -19,6 +19,8 @@ public class JobSeeker {
     private static List<JobSeeker> jobSeekersList = new ArrayList<>();
     private List<Application> applications = new ArrayList<>();
 
+    public JobSeeker(){}
+
     public JobSeeker(String name, String email, String phone, String location, Education education, Skills skills,
             Experience experience) {
         this.userID = idGenerator.getAndIncrement();
