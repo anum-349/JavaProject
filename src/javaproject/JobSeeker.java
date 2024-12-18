@@ -14,7 +14,10 @@ public class JobSeeker {
     private Education education;
     private Experience experience;
     private Skills skills;
-    private Job job;
+    private Notification notification;
+    private Application application;
+    private Job job1, job2, job3;
+    private MatchingEngine matchingengine;
     private List<Education> educationList = new ArrayList<>();
     private List<Experience> experienceList = new ArrayList<>();
     private List<Skills> skillsList = new ArrayList<>();
@@ -33,6 +36,10 @@ public class JobSeeker {
         this.educationList = education;
         this.experienceList = experience;
         this.skillsList = skills;
+        job1 = new SoftwareDeveloperJobs();
+        job2 = new SoftwareDeveloperJobs();
+        job3 = new SoftwareDeveloperJobs();
+
     }
 
     public int getJobSeekerID() {
@@ -93,7 +100,9 @@ public class JobSeeker {
 
     public void applyForJob() {
         Scanner scanner = new Scanner(System.in);
-        job.viewAllJob();
+        job1.viewAllJob();
+        job2.viewAllJob();
+        job3.viewAllJob();
         System.out.println("Enter the Job ID you want to apply for:");
         int selectedJobID = scanner.nextInt();
         scanner.nextLine();
@@ -109,10 +118,11 @@ public class JobSeeker {
             return;
         }
         Application application = Application.createApplication(selectedJob, this);
-        System.out.println("Application submitted successfully with ID: " + application.getApplicationID());
+        notification = notification.createNotification("application", selectedJob.getTitle());
     }
 
     public void createProfile() {
+        System.out.println("\n\n---------------------------------------Users Profile Section---------------------------------------");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your name: ");
         String u_name = scanner.nextLine();
@@ -122,18 +132,18 @@ public class JobSeeker {
         String u_phone = scanner.nextLine();
         System.out.println("Enter your location: ");
         String u_location = scanner.nextLine();
-        System.out.println("Enter your Education Details: ");
+        System.out.println("\n\n---------------------------------------Education Section---------------------------------------");
         education = new Education();
         education.addEducation();
-        System.out.println("Enter your Experience Details: ");
+        System.out.println("\n\n---------------------------------------Experience Section---------------------------------------");
         experience = new Experience();
         experience.addExperience();
-        System.out.println("Enter your Skills: ");
+        System.out.println("\n\n---------------------------------------Skills Section---------------------------------------");
         skills = new Skills();
         skills.addSkill();
         JobSeeker job_Seeker = new JobSeeker(u_name, u_email, u_phone, u_location, education.getEducationList(), skills.getSkillLists(), experience.getExperienceList());
         jobSeekersList.add(job_Seeker);
-        System.out.println("Profile created successfully for: " + u_name);
+        notification = new Notification("Your Profile Successfully Created");
     }
 
     public void updateProfile(int job_seeker_id) {
@@ -156,7 +166,7 @@ public class JobSeeker {
                 return;
             }
         }
-        System.out.println("User record not found with ID: " + job_seeker_id);
+        notification = new Notification("User record not found with ID: " + job_seeker_id);
     }
 
     public void viewProfile(int job_seeker_id) {
@@ -177,7 +187,7 @@ public class JobSeeker {
         for (JobSeeker job_Seeker : jobSeekersList) {
             if (job_Seeker.getJobSeekerID() == job_seeker_id) {
                 jobSeekersList.remove(job_Seeker);
-                System.out.println("Jobseeker deleted: " + job_Seeker.getName());
+                notification = new Notification("Jobseeker deleted: " + job_Seeker.getName());
                 return;
             }
         }
@@ -197,7 +207,7 @@ public class JobSeeker {
                 if (job_seeker.getJobSeekerID() == job_seeker_id) {
                     int choice;
                     do {
-                        System.out.println("1: Apply For a Job");
+                        System.out.println("1: Find Job");
                         System.out.println("2: Manage Profile");
                         System.out.println("3: Exit");
                         System.out.print("Choose an option: ");
@@ -205,7 +215,8 @@ public class JobSeeker {
                         scanner.nextLine();
                         switch (choice) {
                             case 1:
-                                applyForJob();
+                                System.out.println("\n\n---------------------------------------Job Application---------------------------------------");
+                                findJob(job_seeker);
                                 break;
                             case 2:
                                 manage_profile(job_seeker_id);
@@ -221,6 +232,7 @@ public class JobSeeker {
         } else {
             System.out.println("Create a user profile.");
             createProfile();
+            
         }
     }
 
@@ -249,6 +261,49 @@ public class JobSeeker {
                     break;
                 case 4:
                     manageSkillsSection(scanner);
+                    break;
+                case 5:
+                    System.out.println("Exiting profile management.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 5);
+    }
+
+   
+    private void findJob(JobSeeker jobSeeker) {
+        int choice, applicationId;
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Find Job:");
+            System.out.println("1: Apply for a Job");
+            System.out.println("2: View all Jobs");
+            System.out.println("3: See Recomendations");
+            System.out.println("4: View Application");
+            System.out.println("5: Exit");
+            System.out.print("Choose an option: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    applyForJob();
+                    break;
+                case 2:
+                    job1.viewAllJob();
+                    job2.viewAllJob();
+                    job3.viewAllJob();
+                    break;
+                case 3:
+                    matchingengine = new MatchingEngine();
+                    matchingengine.matchJobs(jobSeeker);
+                    matchingengine.generateRecommendation();
+                    break;
+                case 4:
+                    System.out.print("Enter Yur application Id: ");
+                    applicationId = scanner.nextInt();
+                    scanner.nextLine();
+                    application.viewApplicationDetails(applicationId);
                     break;
                 case 5:
                     System.out.println("Exiting profile management.");

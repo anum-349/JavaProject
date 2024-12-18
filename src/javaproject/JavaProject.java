@@ -1,18 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package javaproject;
 
 import java.util.Scanner;
 
-/**
- *
- * @author Rajput
- */
 public class JavaProject {
 
     public static void main(String[] args) {
+        Application application = new Application();
+        Notification notification = new Notification();
         JobSeeker jobseeker = new JobSeeker();
         int choice;
         Scanner scanner = new Scanner(System.in); 
@@ -24,17 +18,19 @@ public class JavaProject {
             System.out.println("Choose Your Role: ");
             choice = scanner.nextInt();
             if( choice == 1 ){
+                System.out.println("\n\n---------------------------------------Job Seeker Section---------------------------------------");
                 jobseeker.profile_Application();
             }
             else if( choice == 2){
-                employeer(scanner);  
+                System.out.println("\n\n---------------------------------------Employeer Section---------------------------------------");
+                employeer(scanner,application, notification);  
             }
             else{
                 System.out.println("Please enter valid choice.");
             }
         }while( choice != 3 );
     }
-    private static void employeer(Scanner scanner){
+    private static void employeer(Scanner scanner, Application application, Notification notification){
         int choice;
         do{
             System.out.println("1: FrontEndDeveloperJobs");
@@ -44,29 +40,34 @@ public class JavaProject {
             System.out.println("Choose an option: ");
             choice = scanner.nextInt();
             if(choice == 1){
+                System.out.println("\n\n---------------------------------------Frontend Developers Jobs---------------------------------------");
                 Job frontendJob = new FrontEndDeveloperJobs();
-                jobMenu(frontendJob);
+                jobMenu(frontendJob, application, notification);
             }
-            else if(choice == 2){
+            else if(choice == 2){                
+                System.out.println("\n\n---------------------------------------Backend Developers Jobs---------------------------------------");
                 Job backendJob = new BackendDeveloperJobs();
-                jobMenu(backendJob);
+                jobMenu(backendJob,application, notification);
             }
             else if(choice == 3){
+                System.out.println("\n\n---------------------------------------Software Developers Jobs---------------------------------------");
                 Job softwareEngineerJob = new SoftwareDeveloperJobs();
-                jobMenu(softwareEngineerJob);
+                jobMenu(softwareEngineerJob,application, notification);
             }
         }while(choice != 4);
     }
 
-    private static void jobMenu(Job type){
+    private static void jobMenu(Job type, Application application, Notification notification){
         Scanner scanner = new Scanner(System.in); 
         int choice, jobid;
         do{
             System.out.println("1: Create Job");
             System.out.println("2: Update Job");
             System.out.println("3: Delete Job");
-            System.out.println("4: View Jobs");        
-            System.out.println("5: Exit");        
+            System.out.println("4: View Jobs");   
+            System.out.println("5: View Applications");
+            System.out.println("6: Update Applications Status");     
+            System.out.println("7: Exit");        
             System.out.println("Choose an option: ");
             choice = scanner.nextInt();
             scanner.nextLine();
@@ -90,6 +91,17 @@ public class JavaProject {
             else if(choice == 4){
                 type.viewAllJob();
             }
+            
+            else if(choice == 5){
+                application.viewAllApplications();
+            }
+            
+            else if(choice == 6){
+                application.viewAllApplications();
+                application.setStatus("hired");
+                notification.createNotification("hired", "");
+            }
+            
             else{
                 System.out.println("Please Choose Valid Option.");
             }

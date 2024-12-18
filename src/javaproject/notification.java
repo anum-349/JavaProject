@@ -6,16 +6,19 @@ class Notification {
     private String message;
     private Date date;
 
+    public Notification(){}
+
     public Notification(String message) {
         this.message = message;
         this.date = new Date();
+        sendNotification();
     }
 
-    public void sendNotification() {
+    private void sendNotification() {
         System.out.println("Notification sent: " + message + " on " + date);
     }
 
-    public static Notification createNotification(String eventType, String jobTitle) { 
+    public Notification createNotification(String eventType, String jobTitle) { 
         String message;
         switch (eventType) {
             case "application":

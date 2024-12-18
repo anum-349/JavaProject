@@ -13,6 +13,8 @@ public class Application {
     private static AtomicInteger generateId = new AtomicInteger(0);
     private static List<Application> applicationList = new ArrayList<>();
 
+    public Application(){}
+    
     public Application(int jobID, int userID) {
         this.applicationID = generateId.getAndIncrement();
         this.jobID = jobID;
@@ -55,27 +57,25 @@ public class Application {
         jobSeeker.addApplication(application);
     
         applicationList.add(application); 
-    
-        System.out.println("Application submitted successfully for job: " + job.getTitle());
+        Notification notification = new Notification();
+        notification.createNotification("application", job.getTitle());
+
         return application;
     }
     
-    public static void updateStatus(int applicationID, String newStatus) {
+    public void updateStatus(int applicationID, String newStatus) {
         for (Application application : applicationList) {
             if (application.getApplicationID() == applicationID) {
                 application.setStatus(newStatus);
                 System.out.println("Application status updated to: " + newStatus);
-                Notification notification = new Notification(
-                    "Your application status for Job ID " + application.getJobID() + " is now: " + newStatus
-                );
-                notification.sendNotification();
+                new Notification("Your application status for Job ID " + application.getJobID() + " is now: " + newStatus);
                 return;
             }
         }
         System.out.println("Application record not found with ID: " + applicationID);
     }
 
-    public static void viewApplicationDetails(int applicationID) {
+    public void viewApplicationDetails(int applicationID) {
         for (Application application : applicationList) {
             if (application.getApplicationID() == applicationID) {
                 System.out.println("Application ID: " + application.getApplicationID() +
@@ -88,7 +88,7 @@ public class Application {
         System.out.println("Application record not found with ID: " + applicationID);
     }
 
-    public static void viewAllApplications() {
+    public void viewAllApplications() {
         if (applicationList.isEmpty()) {
             System.out.println("No application records available.");
         } else {

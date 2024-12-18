@@ -6,6 +6,7 @@ import java.util.List;
 public class MatchingEngine {
     private List<Job> jobs; // List of all jobs
     private List<Job> jobRecommendations; // Recommendations for the current job seeker
+    private Notification notification;
 
     public MatchingEngine() {
         this.jobs = new ArrayList<>();
@@ -35,8 +36,7 @@ public class MatchingEngine {
                 System.out.println(" - " + job.getTitle());
                 // Automatically apply for the job
                 Application application = Application.createApplication(job, jobSeeker);
-                System.out.println("Application submitted with ID: " + application.getApplicationID());
-            }
+          }
         }
     }
 
@@ -44,6 +44,8 @@ public class MatchingEngine {
         System.out.println("Generating job recommendations:");
         for (Job job : jobRecommendations) {
             System.out.println("Recommended Job: " + job.getTitle());
+            notification = notification.createNotification("recommendation", job.getTitle());
+
         }
     }
 }
