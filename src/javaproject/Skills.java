@@ -117,14 +117,13 @@ public class Skills {
     public void deleteSkill(int skillsID) {
         boolean removed = false;
 
-        // Use an iterator to safely remove items from the list
         Iterator<Skills> iterator = skillsList.iterator();
         while (iterator.hasNext()) {
             Skills skill = iterator.next();
             if (skill.getSkillID() == skillsID) {
-                iterator.remove(); // Remove the skill
+                iterator.remove(); 
                 removed = true;
-                break; // Exit loop after finding the skill
+                break; 
             }
         }
 

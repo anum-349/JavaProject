@@ -117,21 +117,20 @@ public class Education {
     public void deleteEducation(int educationID) {
         boolean removed = false;
 
-        // Use an iterator to safely remove items from the list
         Iterator<Education> iterator = educationList.iterator();
         while (iterator.hasNext()) {
             Education education = iterator.next();
             if (education.getEducationID() == educationID) {
-                iterator.remove(); // Remove the skill
+                iterator.remove(); 
                 removed = true;
-                break; // Exit loop after finding the skill
+                break; 
             }
         }
 
         if (removed) {
-            System.out.println("Skill removed successfully.");
+            System.out.println("Education removed successfully.");
         } else {
-            System.out.println("Skill not found.");
+            System.out.println("Education not found.");
         }
     }
 

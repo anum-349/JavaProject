@@ -122,10 +122,13 @@ public class JobSeeker {
         String u_phone = scanner.nextLine();
         System.out.println("Enter your location: ");
         String u_location = scanner.nextLine();
+        System.out.println("Enter your Education Details: ");
         education = new Education();
         education.addEducation();
+        System.out.println("Enter your Experience Details: ");
         experience = new Experience();
         experience.addExperience();
+        System.out.println("Enter your Skills: ");
         skills = new Skills();
         skills.addSkill();
         JobSeeker job_Seeker = new JobSeeker(u_name, u_email, u_phone, u_location, education.getEducationList(), skills.getSkillLists(), experience.getExperienceList());
@@ -304,12 +307,12 @@ public class JobSeeker {
                     break;
                 case 2:
                     education.viewAllEducation();
-                    break;
-                case 3:
-                    education.viewAllEducation();
                     System.out.println("Please Enter your EducationID: ");
                     education_id = scanner.nextInt();
                     education.updateEducation(education_id);
+                    break;
+                case 3:
+                    education.viewAllEducation();
                     break;
                 case 4:
                     education.viewAllEducation();
@@ -344,12 +347,12 @@ public class JobSeeker {
                     break;
                 case 2:
                     experience.viewAllExperience();
-                    break;
-                case 3:
-                    experience.viewAllExperience();
                     System.out.println("Please Enter your ExperienceID: ");
                     experience_id = scanner.nextInt();
                     experience.updateExperience(experience_id);
+                    break;
+                case 3:
+                    experience.viewAllExperience();    
                     break;
                 case 4:
                     experience.viewAllExperience();
@@ -384,12 +387,12 @@ public class JobSeeker {
                     break;
                 case 2:
                     skills.viewSkillDetails();
-                    break;
-                case 3:
-                    skills.viewSkillDetails();
                     System.out.println("Please Enter your skillID: ");
                     skill_id = scanner.nextInt();
                     skills.updateSkill(skill_id);
+                    break;
+                case 3:
+                    skills.viewSkillDetails();
                     break;
                 case 4:
                     skills.viewSkillDetails();

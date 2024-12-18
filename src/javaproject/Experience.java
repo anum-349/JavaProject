@@ -115,21 +115,19 @@ public class Experience {
     public void deleteExperience(int experienceID) {
         boolean removed = false;
 
-        // Use an iterator to safely remove items from the list
         Iterator<Experience> iterator = experienceList.iterator();
         while (iterator.hasNext()) {
             Experience experience = iterator.next();
             if (experience.getExperienceID() == experienceID) {
-                iterator.remove(); // Remove the skill
+                iterator.remove(); 
                 removed = true;
-                break; // Exit loop after finding the skill
+                break;  
             }
         }
-
         if (removed) {
-            System.out.println("Skill removed successfully.");
+            System.out.println("Experience removed successfully.");
         } else {
-            System.out.println("Skill not found.");
+            System.out.println("Experience not found.");
         }
     }
 
