@@ -105,6 +105,6 @@ public class JavaProject {
             else{
                 System.out.println("Please Choose Valid Option.");
             }
-        }while(choice != 5);
+        }while(choice != 7);
     }
 }

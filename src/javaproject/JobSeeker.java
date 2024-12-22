@@ -36,9 +36,6 @@ public class JobSeeker {
         this.educationList = education;
         this.experienceList = experience;
         this.skillsList = skills;
-        job1 = new SoftwareDeveloperJobs();
-        job2 = new SoftwareDeveloperJobs();
-        job3 = new SoftwareDeveloperJobs();
 
     }
 
@@ -100,6 +97,9 @@ public class JobSeeker {
 
     public void applyForJob() {
         Scanner scanner = new Scanner(System.in);
+        job1 = new SoftwareDeveloperJobs();
+        job2 = new SoftwareDeveloperJobs();
+        job3 = new SoftwareDeveloperJobs();
         job1.viewAllJob();
         job2.viewAllJob();
         job3.viewAllJob();
@@ -270,7 +270,6 @@ public class JobSeeker {
             }
         } while (choice != 5);
     }
-
    
     private void findJob(JobSeeker jobSeeker) {
         int choice, applicationId;
@@ -290,6 +289,9 @@ public class JobSeeker {
                     applyForJob();
                     break;
                 case 2:
+                    job1 = new SoftwareDeveloperJobs();
+                    job2 = new SoftwareDeveloperJobs();
+                    job3 = new SoftwareDeveloperJobs();
                     job1.viewAllJob();
                     job2.viewAllJob();
                     job3.viewAllJob();
@@ -300,7 +302,8 @@ public class JobSeeker {
                     matchingengine.generateRecommendation();
                     break;
                 case 4:
-                    System.out.print("Enter Yur application Id: ");
+                    System.out.print("Enter Your application Id: ");
+                    matchingengine = new MatchingEngine();
                     applicationId = scanner.nextInt();
                     scanner.nextLine();
                     application.viewApplicationDetails(applicationId);
